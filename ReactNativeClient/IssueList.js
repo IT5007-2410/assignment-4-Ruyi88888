@@ -74,11 +74,24 @@ const width= [40,80,80,80,80,80,200];
 function IssueRow(props) {
     const issue = props.issue;
     {/****** Q2: Coding Starts here. Create a row of data in a variable******/}
+    const row = [
+      issue.id.toString(),
+      issue.owner,
+      issue.status,
+      issue.created.toLocaleDateString(),
+      issue.effort.toString(),
+      issue.due ? issue.due.toLocaleDateString() : "N/A",
+      issue.title,
+  ];
     {/****** Q2: Coding Ends here.******/}
     return (
       <>
       {/****** Q2: Start Coding here. Add Logic to render a row  ******/}
-      
+      <Row
+            data={row}
+            style={styles.row}
+            textStyle={styles.text}
+        />
       {/****** Q2: Coding Ends here. ******/}  
       </>
     );
@@ -91,6 +104,7 @@ function IssueRow(props) {
     );
 
     {/****** Q2: Start Coding here. Add Logic to initalize table header  ******/}
+    const tableHead = ["ID", "Owner", "Status", "Created", "Effort", "Due", "Title"];
 
     {/****** Q2: Coding Ends here. ******/}
     
@@ -98,7 +112,16 @@ function IssueRow(props) {
     return (
     <View style={styles.container}>
     {/****** Q2: Start Coding here to render the table header/rows.**********/}
-    
+        <Table borderStyle={{ borderWidth: 1, borderColor: "#C1C0B9" }}>
+                <Row
+                    data={tableHead}
+                    style={styles.header}
+                    textStyle={styles.text}
+                />
+                <TableWrapper style={styles.dataWrapper}>
+                    {issueRows}
+                </TableWrapper>
+        </Table>
     {/****** Q2: Coding Ends here. ******/}
     </View>
     );
@@ -204,6 +227,7 @@ export default class IssueList extends React.Component {
 
 
     {/****** Q2: Start Coding here. ******/}
+    <IssueTable issues={this.state.issues} />
     {/****** Q2: Code ends here ******/}
 
     

@@ -66,8 +66,11 @@ async function getNextSequence(name) {
   const result = await db.collection('counters').findOneAndUpdate(
     { _id: name },
     { $inc: { current: 1 } },
-    { returnOriginal: false },
+    { returnOriginal: 'after',upsert: true },
   );
+  if (!result.value) {
+    throw new Error(`Counter for ${name} not found and could not be created`);
+  }
   return result.value.current;
 }
 
@@ -96,7 +99,7 @@ async function issueAdd(_, { issue }) {
 }
 
 async function connectToDb() {
-  const client = new MongoClient(url, { useNewUrlParser: true });
+  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
   await client.connect();
   console.log('Connected to MongoDB at', url);
   db = client.db();
