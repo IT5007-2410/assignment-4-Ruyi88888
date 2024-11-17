@@ -52,7 +52,9 @@ class IssueFilter extends React.Component {
       return (
         <>
         {/****** Q1: Start Coding here. ******/}
-
+        <View>
+          <Text>Issue Filter</Text>
+        </View>
         {/****** Q1: Code ends here ******/}
         </>
       );
@@ -197,6 +199,7 @@ export default class IssueList extends React.Component {
     return (
     <>
     {/****** Q1: Start Coding here. ******/}
+    <IssueFilter />
     {/****** Q1: Code ends here ******/}
 
 
